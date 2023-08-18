@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE fetchAllStudentsProc
+CREATE OR ALTER PROCEDURE fetchAllStudentsProc  
 AS
 BEGIN
     SELECT *

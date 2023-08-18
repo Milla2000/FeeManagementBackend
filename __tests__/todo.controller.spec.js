@@ -29,7 +29,7 @@ describe("Student Fees Management", () => {
 
   it("should perform a soft delete for a student", async () => {
     // Assuming you have a student with ID 2 in the database
-    const res = await request(app).delete("/students/2");
+    const res = await request(app).delete("/students/0c0765dd-6397-41b4-a001-f7bd304499c9");
 
     expect(res.status).toBe(200);
     expect(res.body.message).toBe("Student soft deleted");
@@ -44,7 +44,7 @@ describe("Student Fees Management", () => {
 
   it("should fetch student details by ID", async () => {
     // Assuming you have a student with ID 3 in the database
-    const res = await request(app).get("/students/3");
+    const res = await request(app).get("/students/0c0765dd-6397-41b4-a001-f7bd304499c9");
 
     expect(res.status).toBe(200);
     expect(res.body.student).toEqual(
