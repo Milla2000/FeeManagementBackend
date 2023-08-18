@@ -38,7 +38,7 @@ const createNewStudent = async (req, res) => {
         .input("is_deleted", mssql.Bit, is_deleted) // Add is_deleted input with default value
         .execute("createStudentProc");
 
-      if (result.rowsAffected == 1) {
+      if (result.rowsAffected[0] == 1) {
         return res.json({
           message: "Student created successfully",
         });

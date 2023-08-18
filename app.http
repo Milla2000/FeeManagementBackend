@@ -1,14 +1,11 @@
 #create a project
 POST http://localhost:4500/students
-Content-Type: application/json
-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM5Y2FiOGY2LTYxMGUtNGJhMC04NjE4LTU5OTkwYWVkMjgzOSIsImZ1bGxfbmFtZSI6Ik1pbGxhIEplc3NvIiwiZW1haWwiOiJtaWxsYWpAZ21haWwuY29tIiwiYXNzaWduZWRQcm9qZWN0IjoiODY0MjYzODYtYWQ5Yy00ODA3LTg4MDktMzA0MWZiYzNmYTgwIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2OTEyNDMzNDUsImV4cCI6MTY5MTI0Njk0NX0.q0dttaVAoF_MVPSDY6wcaY6Si7XMA5WV_Vbly1wcAes
 
 {
     "studentname": "Milla",
     "classroom": "4 east",
     "feebalance": "58858"
-
-    
+  
 }
 
 

@@ -22,3 +22,7 @@ app.get((err,req,res,next)=>{
     res.json({Error: err})
 })
 
+
+app.listen(4500, () => {
+  console.log("server running on port 4500");
+});

@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "../server"; // Replace with the correct path to your Express app
+import app from "../server"; 
 
 describe("Student Fees Management", () => {
   it("should add a new student", async () => {
