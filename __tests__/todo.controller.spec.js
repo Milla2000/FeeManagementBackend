@@ -3,7 +3,7 @@ const { app } = require("../server");
 
 describe("Student Controllers", () => {
   it("should add a new student", async () => {
-    // Assuming you have student data to send
+    //note-  Assuming you have student data to send
     const studentData = {
       studentname: "John Doe",
       classroom: "Math",
@@ -16,8 +16,40 @@ describe("Student Controllers", () => {
     expect(response.body.message).toBe("Student created successfully");
   });
 
+   it("should return 400 if required input values are missing", async () => {
+     // Missing studentname, classroom, and feebalance in req.body
+     const response = await request(app).post("/students").send({});
+
+     expect(response.status).toBe(400);
+     expect(response.body.error).toBe("Missing required input values");
+   });
+
+   it("should return 400 if feebalance is negative", async () => {
+     const response = await request(app).post("/students").send({
+       studentname: "John Doe",
+       classroom: "Class A",
+       feebalance: -50,
+    });
+
+
+
+     expect(response.status).toBe(400);
+     expect(response.body.error).toBe("Invalid fee balance value");
+   });
+
+    it("should return 400 if feebalance is not a number", async () => {
+      const response = await request(app).post("/students").send({
+        studentname: "John Doe",
+        classroom: "Class A",
+        feebalance: "fee",
+      });
+
+      expect(response.status).toBe(400);
+      expect(response.body.error).toBe("Invalid fee balance value");
+    });
+
   it("should fetch student details by ID", async () => {
-    // Assuming you have a valid student ID-
+    // NOte: Assuming you have a valid student ID
     const studentId = "744e2284-82d4-4470-b542-e8d0b92e0bae";
 
     const response = await request(app).get(`/students/${studentId}`);
@@ -50,7 +82,7 @@ describe("Student Controllers", () => {
 
   it("should perform a soft delete for a student", async () => {
     // Assuming you have a valid student ID - 
-    // note:  use a valid student ID from your database for this test to pass
+    // note:  use a valid student ID 
     const studentId = "744e2284-82d4-4470-b542-e8d0b92e0bae";
 
     const response = await request(app).delete(`/students/${studentId}`);

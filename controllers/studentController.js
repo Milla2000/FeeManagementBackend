@@ -11,6 +11,18 @@ const createNewStudent = async (req, res) => {
     const currentTime = new Date();
     const { studentname, classroom, feebalance } = req.body;
 
+     if (!studentname || !classroom || !feebalance) {
+       return res.status(400).json({ error: "Missing required input values" });
+     }
+
+     if (typeof feebalance !== "number" || feebalance < 0) {
+       return res.status(400).json({ error: "Invalid fee balance value" });
+     }
+
+     if (studentname.trim().length === 0 || studentname.length > 100) {
+       return res.status(400).json({ error: "Invalid student name" });
+     }
+
     const pool = await mssql.connect(sqlConfig);
 
     if (pool.connected) {
@@ -47,9 +59,9 @@ const viewOneStudent = async (req, res) => {
       await pool.request().input("id", id).execute("fetchOneStudentProc")
     ).recordset;
 
-    // if (student.length === 0) {
-    //   return res.status(404).json({ error: "Student not found" });
-    // }
+    if (student.length === 0) {
+      return res.status(404).json({ error: "Student not found" });
+    }
     return res.status(200).json({
       student: student
     });
@@ -77,6 +89,14 @@ const updateStudentFeeBalance = async (req, res) => {
   try {
     const { id } = req.params;
     const { feebalance } = req.body;
+
+    if (!feebalance) {
+      return res.status(400).json({ error: "Missing required input values" });
+    }
+
+    if (typeof feebalance !== "number" || feebalance < 0) {
+      return res.status(400).json({ error: "Invalid fee balance value" });
+    }
 
     const pool = await mssql.connect(sqlConfig);
 
