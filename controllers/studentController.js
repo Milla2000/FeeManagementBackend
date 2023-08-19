@@ -48,10 +48,10 @@ const viewOneStudent = async (req, res) => {
     ).recordset;
 
     // if (student.length === 0) {
-      // return res.status(404).json({ error: "Student not found" });
+    //   return res.status(404).json({ error: "Student not found" });
     // }
     return res.status(200).json({
-      student: student,
+      student: student
     });
   } catch (error) {
     return res
