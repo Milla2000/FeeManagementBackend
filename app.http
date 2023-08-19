@@ -1,10 +1,11 @@
 #create a project
 POST http://localhost:4500/students
+Content-Type: application/json
 
 {
-    "studentname": "Milla",
-    "classroom": "4 east",
-    "feebalance": "58858"
+    "studentname": "Milla jesso",
+    "classroom": "4 west",
+    "feebalance": "444444444444"
   
 }
 
@@ -16,20 +17,19 @@ GET http://localhost:4500/students
 
 
 ### GET ONE PROJECT
-GET http://localhost:students/projects/0c0765dd-6397-41b4-a001-f7bd304499c9
+GET http://localhost:4500/students/744e2284-82d4-4470-b542-e8d0b92e0bae 
 
 
 ### UPDATING PROJECT
-PUT http://localhost:4500/students/0c0765dd-6397-41b4-a001-f7bd304499c9
-
-I
+PUT http://localhost:4500/students/2dbc5a9c-1e27-480e-9aa3-3d78c8fa0dfb
+Content-Type: application/json
 
 {
-    "feebalance": "45448",
-    
+    "feebalance": "48"
 }
 
 ###delete
-DELETE http://localhost:4500/students/00e7d3cf-2031-4b35-bdc7-1fed12541c77
+DELETE http://localhost:4500/students/744e2284-82d4-4470-b542-e8d0b92e0bae 
+
 
 

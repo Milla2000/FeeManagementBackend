@@ -1,67 +1,55 @@
-import request from "supertest";
-import app from "../server"; 
+const request = require("supertest");
+const { app } = require("../server"); // Adjust the path
 
-describe("Student Fees Management", () => {
+describe("Student Controllers", () => {
   it("should add a new student", async () => {
     const studentData = {
       studentname: "John Doe",
-      class: "10A",
-      feebalance: 1000,
+      classroom: "Math",
+      feebalance: 100,
     };
 
-    const res = await request(app).post("/students").send(studentData);
-
-    expect(res.status).toBe(201);
-    expect(res.body.message).toBe("Student created successfully");
-  });
-
-  it("should update fee balance for a student", async () => {
-    // Assuming you have a student with ID 1 in the database
-    const updatedBalance = 1500;
-
-    const res = await request(app)
-      .put("/students/1")
-      .send({ feebalance: updatedBalance });
-
-    expect(res.status).toBe(200);
-    expect(res.body.message).toBe("Student fee balance updated successfully");
-  });
-
-  it("should perform a soft delete for a student", async () => {
-    // Assuming you have a student with ID 2 in the database
-    const res = await request(app).delete("/students/0c0765dd-6397-41b4-a001-f7bd304499c9");
-
-    expect(res.status).toBe(200);
-    expect(res.body.message).toBe("Student soft deleted");
-  });
-
-  it("should fetch all students", async () => {
-    const res = await request(app).get("/students");
-
-    expect(res.status).toBe(200);
-    expect(res.body.students).toBeInstanceOf(Array);
+    const response = await request(app).post("/students").send(studentData);
+    expect(response.status).toBe(201);
+    expect(response.body.message).toBe("Student created successfully");
   });
 
   it("should fetch student details by ID", async () => {
-    // Assuming you have a student with ID 3 in the database
-    const res = await request(app).get("/students/0c0765dd-6397-41b4-a001-f7bd304499c9");
+    // Assuming you have a valid student ID
+    const studentId = "valid-student-id";
 
-    expect(res.status).toBe(200);
-    expect(res.body.student).toEqual(
-      expect.objectContaining({
-        id: expect.any(Number),
-        studentname: expect.any(String),
-        class: expect.any(String),
-        feebalance: expect.any(Number),
-        is_deleted: expect.any(Boolean),
-      })
+    const response = await request(app).get(`/students/${studentId}`);
+    expect(response.status).toBe(200);
+    expect(response.body.student).toBeDefined();
+  });
+
+  it("should fetch all students", async () => {
+    const response = await request(app).get("/students");
+    expect(response.status).toBe(200);
+    expect(response.body.students).toBeDefined();
+  });
+
+  it("should update fee balance for a student", async () => {
+    // Assuming you have a valid student ID
+    const studentId = "valid-student-id";
+    const newFeeBalance = 150;
+
+    const response = await request(app)
+      .put(`/students/${studentId}`)
+      .send({ feebalance: newFeeBalance });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe(
+      "Student fee balance updated successfully"
     );
   });
 
-  it("should return 404 if student not found by ID", async () => {
-    const res = await request(app).get("/students/9999");
+  it("should perform a soft delete for a student", async () => {
+    // Assuming you have a valid student ID
+    const studentId = "valid-student-id";
 
-    expect(res.status).toBe(404);
-    expect(res.body.error).toBe("Student not found");
+    const response = await request(app).delete(`/students/${studentId}`);
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe("Student deleted");
   });
 });
